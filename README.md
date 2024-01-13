@@ -12,6 +12,9 @@ Bienvenue dans l'application de gestion des enveloppes budgétaires. Cette appli
 
 - **Suppression d'Enveloppes** : Vous pouvez supprimer une enveloppe si elle n'est plus nécessaire.
 
+- **Transfert de fonds entre Enveloppes** : Vous pouvez transférer des fonds d'une enveloppe à une autre
+
+
 ## Comment Utiliser
 
 1. **Installation** : Clonez ce dépôt sur votre machine locale en utilisant la commande `git clone`.
