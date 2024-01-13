@@ -77,11 +77,45 @@ const updateEnvelope = (id, updatedData) => {
     return true; // Retourne true pour indiquer que la mise à jour a réussi
 }
 
+const checkBalance = (source, transfer) => {
+    const envelope = getEnvelopeById(source);
+    let totalAfterTransfer = envelope.montant_initial - transfer;
+    if (totalAfterTransfer > 0) {
+        return true
+    }
+    else {
+        return false
+    }
+}
+
+const updateBalance = (source, destination, transferAmount) => {
+    const envelopes = getAll();
+    const envelopeSourceToUpdate = envelopes.find(envelope => envelope.id === source);
+    const envelopeDestinationToUpdate = envelopes.find(envelope => envelope.id === destination);
+
+    if (!envelopeSourceToUpdate || !envelopeDestinationToUpdate) {
+        console.error(`Enveloppe avec ID ${source} ou ${destination} non trouvée.`);
+        return false; // Retourne false si l'une des enveloppes n'est pas trouvée
+    }
+
+    if (envelopeSourceToUpdate.solde_actuel < transferAmount) {
+        console.error(`Fonds insuffisants dans l'enveloppe source avec ID ${source}.`);
+        return false; // Retourne false si les fonds sont insuffisants dans l'enveloppe source
+    }
+
+    envelopeSourceToUpdate.solde_actuel -= transferAmount;
+    envelopeDestinationToUpdate.solde_actuel += transferAmount;
+
+    fs.writeFileSync(envelopesFilePath, JSON.stringify(envelopes, null, 4), 'utf-8');
+    return true;
+}
 
 module.exports = {
     getAll,
     addEnvelope,
     deleteEnvelope,
     getEnvelopeById,
-    updateEnvelope
+    updateEnvelope,
+    checkBalance,
+    updateBalance
 }

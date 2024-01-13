@@ -32,6 +32,29 @@
             </table>
         </section>
 
+        <section class="transfer-envelope">
+            <h2>Transférer de l'argent entre enveloppes</h2>
+            <form action="/envelopes/transfer" id="transfer-form" method="post">
+                <div>
+                    <label for="source-envelope">Enveloppe source</label>
+                    <select name="source-envelope" id="source-envelope" required>
+                        <option value="">...</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="destination-envelope">Enveloppe de destination</label>
+                    <select name="destination-envelope" id="destination-envelope" required>
+                        <option value="">...</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="transfer-amount">Montant à transférer</label>
+                    <input type="number" name="transfer-amount" id="transfer-amount" required step="0.01">
+                </div>
+                <button type="submit">Transférer</button>
+            </form>
+        </section>
+
         <section class="create-envelope">
             <h2>Créer une Nouvelle Enveloppe</h2>
             <!-- Formulaire de création d'une nouvelle enveloppe budgétaire -->

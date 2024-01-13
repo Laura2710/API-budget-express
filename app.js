@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Middleware de journalisation des requêtes
-app.use(morgan('combined'));
+app.use(morgan('tiny'));
 
 // Middleware pour servir des fichiers statiques depuis le répertoire 'public'
 app.use(express.static(path.join(__dirname, 'public')));
@@ -112,6 +112,40 @@ app.put('/envelopes/:id', (req, res) => {
         res.status(500).send('Une erreur interne est survenue.');
     }
 });
+
+app.post('/envelopes/transfer', (req, res) => {
+    try {
+        const source = convertToNumber(req.body['source-envelope']);
+        const destination = convertToNumber(req.body['destination-envelope']);
+        const transferAmount = convertToNumber(req.body['transfer-amount']);
+
+        if (source !== destination) {
+            if (isNaN(source) || isNaN(destination) || isNaN(transferAmount)) {
+                throw new Error("Les données fournies sont incorrectes.");
+            }
+
+            const sourceEnvelope = envelopes.getEnvelopeById(source);
+            const destinationEnvelope = envelopes.getEnvelopeById(destination);
+
+            if (!sourceEnvelope || !destinationEnvelope) {
+                throw new Error("Enveloppe source ou destination non trouvée.");
+            }
+
+            if (!envelopes.checkBalance(source, transferAmount)) {
+                throw new Error("Fonds insuffisants dans l'enveloppe source.");
+            }
+
+            envelopes.updateBalance(source, destination, transferAmount);
+            res.redirect('/');
+        } else {
+            throw new Error("L'enveloppe source et la destination ne peuvent pas être les mêmes.");
+        }
+    } catch (error) {
+        console.error(error.message);
+        res.status(400).send(error.message);
+    }
+});
+
 
 // Écoute sur le port 8000
 app.listen(8000, () => {

@@ -3,18 +3,12 @@
         "id": 1,
         "nom": "Gaz",
         "montant_initial": 200,
-        "solde_actuel": 60
+        "solde_actuel": 280
     },
     {
         "id": 2,
         "nom": "EDF",
         "montant_initial": 500,
-        "solde_actuel": 500
-    },
-    {
-        "id": 3,
-        "nom": "Gaz",
-        "montant_initial": 200,
-        "solde_actuel": 500
+        "solde_actuel": 280
     }
 ]

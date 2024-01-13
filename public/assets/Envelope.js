@@ -19,6 +19,7 @@ export default class EnveloppeManager {
                 data.envelopes.forEach(envelope => {
                     this.populateSelectElement(envelope);
                     this.createTableRow(envelope);
+                    this.populateSelectOptions(envelope);
                 });
             })
             .catch(error => {
@@ -129,5 +130,18 @@ export default class EnveloppeManager {
             .catch(error => {
                 console.error('Erreur lors de la mise à jour de l\'enveloppe :', error);
             });
+    }
+
+    // méthode pour remplir les options des listes déroulantes
+    populateSelectOptions(envelope) {
+        const option = document.createElement('option');
+        option.value = envelope.id;
+        option.textContent = envelope.nom;
+
+        const sourceSelect = document.getElementById('source-envelope');
+        const destinationSelect = document.getElementById('destination-envelope');
+
+        sourceSelect.appendChild(option.cloneNode(true));
+        destinationSelect.appendChild(option);
     }
 }
