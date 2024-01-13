@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enveloppe Budgétaire</title>
+    <link rel="stylesheet" href="./assets/style.css">
+    <script src="index.js" type="module" defer></script>
+</head>
+
+<body>
+    <header>
+        <h1>API Enveloppes Budgétaires</h1>
+        <p>Bienvenue dans votre application de gestion des enveloppes budgétaires.</p>
+    </header>
+
+
+    <main>
+        <section class="envelopes">
+            <h2>Mes Enveloppes Budgétaires</h2>
+            <table id="table-envelopes">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Montant Initial</th>
+                        <th>Solde Actuel</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body"></tbody>
+            </table>
+        </section>
+
+        <section class="create-envelope">
+            <h2>Créer une Nouvelle Enveloppe</h2>
+            <!-- Formulaire de création d'une nouvelle enveloppe budgétaire -->
+            <form action='/envelopes' id="budget-form" method="post">
+                <div>
+                    <label for="budget-name">Nom</label>
+                    <input type="text" name="budget-name" id="budget-name" required value="Gaz">
+                </div>
+                <div>
+                    <label for="initial-amount">Montant initial</label>
+                    <input type="number" name="initial-amount" id="initial-amount" required value="200">
+                </div>
+                <div>
+                    <label for="current-balance">Solde actuel</label>
+                    <input type="number" name="current-balance" id="current-balance" required value="50">
+                </div>
+                <!-- Add any necessary fields here -->
+                <button type="submit">Create</button>
+            </form>
+
+        </section>
+        <section class="edit-envelope">
+            <h2>Modifier une enveloppe</h2>
+            <form action='/envelopes/:id' id="update-form" method="post">
+                <div>
+                    <label for="budget-name">Sélectionnez le budget à modifier</label>
+                    <select name="selected-envelope" id="selected-envelope">
+                        <option value="">...</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="updated-initial-amount">Montant initial</label>
+                    <input type="number" name="updated-initial-amount" id="updated-initial-amount" required step="0.01">
+                </div>
+                <div>
+                    <label for="updated-current-balance">Solde actuel</label>
+                    <input type="number" name="updated-current-balance" id="updated-current-balance" required
+                        step="0.01">
+                </div>
+
+                <!-- Add any necessary fields here -->
+                <button type="submit">Update</button>
+            </form>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Votre Entreprise. Tous droits réservés.</p>
+    </footer>
+
+
+</body>
+
+</html>
